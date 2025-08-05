@@ -95,7 +95,7 @@
                             class="w-full flex items-center justify-between px-6 py-4 hover:bg-gray-100 transition-all-300">
                             <div class="flex items-center">
                                 <i class="fa fa-book w-6"></i>
-                                <span class="ml-3">AmongUs教程</span>
+                                <span class="ml-3">AmongUs工具&模组安装教程</span>
                             </div>
                             <i id="tutorials-icon"
                                 class="fa fa-chevron-down text-xs transition-transform duration-300"></i>
@@ -104,10 +104,17 @@
                         <!-- 子项列表 -->
                         <ul id="tutorials-submenu" class="pl-10 overflow-hidden transition-all-300 max-h-0">
                             <li>
-                                <a href="HELP_HTML/H_EHR.html" target="_blank"
+                                <a href="ehr_tutorial.html" target="_blank"
                                     class="flex items-center px-6 py-3 hover:bg-gray-100 transition-all-300 text-gray-700">
                                     <i class="fa fa-caret-right w-4 text-sm"></i>
-                                    <span class="ml-2">EHR</span>
+                                    <span class="ml-2">EHR模组安装教程</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-page="au_priv_server"
+                                    class="flex items-center px-6 py-3 hover:bg-gray-100 transition-all-300 text-gray-700">
+                                    <i class="fa fa-caret-right w-4 text-sm"></i>
+                                    <span class="ml-2">私服安装工具</span>
                                 </a>
                             </li>
                         </ul>
@@ -156,6 +163,24 @@
                 <!-- 装饰元素 -->
                 <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
                 <div class="absolute top-40 -left-20 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
+            </section>
+            
+            <!--私服安装工具-->
+            <section id="au_priv_server" class="page active min-h-screen p-8 md:p-16 flex flex-col">
+                <div class="max-w-4xl mx-auto flex-grow">
+                    <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-bold text-dark mb-6 leading-tight animate-fade-in">
+                        私服安装工具
+                    </h1>
+                    <p class="text-gray-600 text-lg md:text-xl mb-10 max-w-2xl">
+                        整合了国内大多数的私服,例如诗云阁等
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://github.com/Zixun44" target="_blank"
+                            class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all-300 shadow-md hover:shadow-lg">
+                            点击此处下载
+                        </a>
+                    </div>
+                </div>
             </section>
         </main>
     </div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHR模组教程</title>
+    <!-- 引入marked库（解析Markdown） -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/marked/16.1.1/lib/marked.esm.js"></script>
+    <!-- 引入GitHub风格的Markdown样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+    <!-- Tailwind CSS（用于页面布局美化） -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 p-4 md:p-8">
+    <div class="container mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
+        <!-- 标题 -->
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-800">EHR 模组安装与更新教程</h1>
+        <h2 class="text-2xl md:text-2xl font-bold mb-6 text-gray-800">模组安装教程</h2>
+        <ol>
+            <li>
+                <p><strong>下载 EHR</strong><br>下载地址：<a
+                        href="https://github.com/Gurge44/EndlessHostRoles/release/latest">https://github.com/Gurge44/EndlessHostRoles/release/latest</a>
+                </p>
+                <ul>
+                    <li><strong>Steam 版本</strong>：下载 <code>EHR.version_Steam.zip</code> </li>
+                    <li><strong>Epic 或微软商店版本</strong>：下载 <code>EHR.version_Epic-Games_Microsoft-Store.zip</code> </li>
+                </ul>
+            </li>
+            <li>
+                <p><strong>找到 Among Us 文件夹并安装模组</strong> </p>
+                <ul>
+                    <li><strong>Steam</strong>
+                        <ol>
+                            <li>右键 Among Us → 管理 →
+                                浏览本地文件（示例路径：<code>C:\Program Files (x86)\Steam\steamapps\common\Among Us\</code>） </li>
+                            <li>将下载的模组压缩包解压到游戏目录 </li>
+                        </ol>
+                    </li>
+                    <li><strong>Epic</strong>
+                        <ol>
+                            <li>找到路径：<code>C:\Program Files\Epic Games\AmongUs\</code> </li>
+                            <li>将下载的模组压缩包解压到游戏目录 </li>
+                        </ol>
+                    </li>
+                    <li><strong>微软商店</strong>
+                        <ol>
+                            <li>一般是：<code>C:\Program Files\WindowsApps\...</code>（通过系统变量查找） </li>
+                            <li>将下载的模组压缩包解压到游戏目录 </li>
+                        </ol>
+                    </li>
+                </ul>
+                <p><em>提示：Steam 版本可复制游戏副本后再安装模组，避免影响原文件。</em></p>
+            </li>
+        </ol>
+        <h2 class="text-2xl md:text-2xl font-bold mb-6 text-gray-800">模组更新教程</h2>
+        <ol>
+            <li>
+                <p><strong>下载新的 EHR.dll</strong><br>下载地址：<a
+                        href="https://github.com/Gurge44/EndlessHostRoles/release/latest">https://github.com/Gurge44/EndlessHostRoles/release/latest</a>
+                </p>
+            </li>
+            <li>
+                <p><strong>替换旧版本 EHR.dll</strong> </p>
+                <ol>
+                    <li>按照安装教程中的方法找到游戏文件夹 </li>
+                    <li>进入目录：<code>/BepInEx/plugins</code> </li>
+                    <li>用新下载的 <code>EHR.dll</code> 替换旧文件</li>
+                </ol>
+            </li>
+        </ol>
+
+    </div>
+</body>
+
+</html>

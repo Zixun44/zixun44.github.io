@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    
+
     <!-- 配置Tailwind自定义颜色和字体 -->
     <script>
         tailwind.config = {
@@ -27,7 +28,7 @@
             }
         }
     </script>
-    
+
     <style type="text/tailwindcss">
         @layer utilities {
             .content-auto {
@@ -39,13 +40,36 @@
             .transition-all-300 {
                 @apply transition-all duration-300 ease-in-out;
             }
+            .page {
+                @apply absolute inset-0 opacity-0 pointer-events-none transition-all duration-500 transform translate-x-10;
+                overflow-y: auto; /* 允许页面内容滚动 */
+            }
+            .page.active {
+                @apply opacity-100 pointer-events-auto translate-x-0;
+            }
+            .page.prev {
+                @apply translate-x-[-100%] opacity-0;
+            }
+        }
+        .markdown-body {
+            box-sizing: border-box;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
         }
     </style>
 </head>
+
 <body class="bg-gray-50 text-dark font-sans">
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex h-screen overflow-hidden relative">
         <!-- 侧边栏 -->
-        <aside id="sidebar" class="w-64 bg-white shadow-lg z-20 transition-all-300 md:translate-x-0 -translate-x-full fixed md:relative h-full">
+        <aside id="sidebar"
+            class="w-64 bg-white shadow-lg z-20 transition-all-300 md:translate-x-0 -translate-x-full fixed md:relative h-full">
             <!-- 侧边栏头部 -->
             <div class="p-5 border-b flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
@@ -53,47 +77,67 @@
                 </div>
                 <h1 class="text-xl font-bold">Zixun44</h1>
             </div>
-            
+
             <!-- 侧边栏菜单 -->
             <nav class="py-5">
                 <ul>
                     <li>
-                        <a href="#home" class="sidebar-item-active flex items-center px-6 py-4 transition-all-300">
+                        <a href="#" data-page="home"
+                            class="sidebar-item-active flex items-center px-6 py-4 transition-all-300 page-link">
                             <i class="fa fa-home w-6"></i>
                             <span class="ml-3">首页</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#projects" class="flex items-center px-6 py-4 hover:bg-gray-100 transition-all-300">
-                            <i class="fa fa-folder w-6"></i>
-                            <span class="ml-3">项目</span>
-                        </a>
+
+                    <!-- 教程标签及子项 -->
+                    <li class="relative">
+                        <button id="tutorials-toggle"
+                            class="w-full flex items-center justify-between px-6 py-4 hover:bg-gray-100 transition-all-300">
+                            <div class="flex items-center">
+                                <i class="fa fa-book w-6"></i>
+                                <span class="ml-3">AmongUs教程</span>
+                            </div>
+                            <i id="tutorials-icon"
+                                class="fa fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+
+                        <!-- 子项列表 -->
+                        <ul id="tutorials-submenu" class="pl-10 overflow-hidden transition-all-300 max-h-0">
+                            <li>
+                                <a href="HELP_HTML/H_EHR.html" target="_blank"
+                                    class="flex items-center px-6 py-3 hover:bg-gray-100 transition-all-300 text-gray-700">
+                                    <i class="fa fa-caret-right w-4 text-sm"></i>
+                                    <span class="ml-2">EHR</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
-            
+
             <!-- 侧边栏底部 -->
             <div class="absolute bottom-0 w-full p-5 border-t">
                 <div class="flex space-x-4 justify-center">
-                    <a href="https://github.com/Zixun44" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-primary transition-all-300">
+                    <a href="https://github.com/Zixun44" target="_blank" rel="noopener noreferrer"
+                        class="text-gray-500 hover:text-primary transition-all-300">
                         <i class="fa fa-github text-xl"></i>
                     </a>
                 </div>
             </div>
         </aside>
-        
-        <!-- 主内容区 -->
-        <main class="flex-1 overflow-y-auto bg-gray-50 md:ml-64">
+
+        <!-- 主内容区 - 分页容器 -->
+        <main class="flex-1 overflow-hidden bg-gray-50 md:ml-64 relative">
             <!-- 顶部导航栏（仅在移动设备显示） -->
             <header class="bg-white shadow-sm p-4 sticky top-0 z-10 md:hidden">
                 <button id="menu-toggle" class="text-gray-600 hover:text-primary">
                     <i class="fa fa-bars text-xl"></i>
                 </button>
             </header>
-            
+
             <!-- 首页内容 -->
-            <section id="home" class="min-h-screen p-8 md:p-16 flex flex-col justify-center">
-                <div class="max-w-4xl mx-auto">
+            <section id="home" class="page active min-h-screen p-8 md:p-16 flex flex-col">
+                <div class="max-w-4xl mx-auto flex-grow">
                     <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-bold text-dark mb-6 leading-tight animate-fade-in">
                         欢迎来到<br>Zixun44的网站
                     </h1>
@@ -102,117 +146,100 @@
                         感谢您的访问，希望能在这里找到对您有价值的内容。
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#projects" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all-300 shadow-md hover:shadow-lg">
+                        <a href="https://github.com/Zixun44" target="_blank"
+                            class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all-300 shadow-md hover:shadow-lg">
                             查看我的项目
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- 装饰元素 -->
                 <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
                 <div class="absolute top-40 -left-20 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
             </section>
-            
-            <!-- 项目页面内容 -->
-            <section id="projects" class="min-h-screen p-8 md:p-16 py-20">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[clamp(2rem,5vw,3rem)] font-bold text-dark mb-12">我的项目</h2>
-                    
-                    <div class="grid gap-8">
-                        <!-- MinecraftForgeTpaMod 项目卡片 -->
-                        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all-300 overflow-hidden">
-                            <div class="p-6 md:p-8">
-                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-0">MinecraftForgeTpaMod</h3>
-                                    <span class="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">Minecraft 模组</span>
-                                </div>
-                                
-                                <p class="text-gray-600 mb-6">
-                                    一个基于Minecraft Forge的传送模组，实现了玩家之间的传送请求与传送功能，提升多人游戏体验。
-                                </p>
-                                
-                                <a href="https://github.com/Zixun44/Tpa-mod" target="_blank" rel="noopener noreferrer" 
-                                   class="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-all-300">
-                                    <i class="fa fa-github mr-2"></i>
-                                    查看GitHub仓库
-                                    <i class="fa fa-external-link ml-2 text-sm"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- 可以在这里添加更多项目 -->
-                    </div>
-                </div>
-            </section>
-            
-            <!-- 页脚 -->
-            <footer class="bg-white border-t py-8 px-8">
-                <div class="max-w-6xl mx-auto text-center text-gray-500">
-                    <p>&copy; 2025 Zixun44的网站. 保留所有权利.</p>
-                    <p class="mt-2 text-sm">使用 GitHub Pages 构建</p>
-                </div>
-            </footer>
         </main>
     </div>
 
     <script>
+        // 页面元素和状态
+        const pages = document.querySelectorAll('.page');
+        const pageLinks = document.querySelectorAll('.page-link');
+        let currentPageIndex = 0;
+        const pageIds = Array.from(pages).map(page => page.id);
+
         // 侧边栏切换功能（移动设备）
-        document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('menu-toggle').addEventListener('click', function () {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('-translate-x-full');
         });
-        
-        // 点击侧边栏链接关闭移动菜单
-        document.querySelectorAll('#sidebar a').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth < 768) {
-                    document.getElementById('sidebar').classList.add('-translate-x-full');
-                }
-            });
+
+        // 教程子菜单展开/折叠功能
+        document.getElementById('tutorials-toggle').addEventListener('click', function () {
+            const submenu = document.getElementById('tutorials-submenu');
+            const icon = document.getElementById('tutorials-icon');
+
+            if (submenu.classList.contains('max-h-0')) {
+                submenu.classList.remove('max-h-0');
+                submenu.classList.add('max-h-96');
+                icon.classList.add('rotate-180');
+            } else {
+                submenu.classList.remove('max-h-96');
+                submenu.classList.add('max-h-0');
+                icon.classList.remove('rotate-180');
+            }
         });
-        
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // 滚动时高亮当前菜单项
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('#sidebar a');
-            
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (window.pageYOffset >= sectionTop - 150) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('sidebar-item-active');
-                link.classList.add('hover:bg-gray-100');
-                
-                if (link.getAttribute('href') === `#${current}`) {
+
+        // 切换页面函数
+        function switchPage(pageId) {
+            // 隐藏当前页面
+            const currentPage = document.querySelector('.page.active');
+            currentPage.classList.remove('active');
+            currentPage.classList.add('prev');
+
+            // 显示目标页面
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.remove('prev');
+            targetPage.classList.add('active');
+
+            // 重置页面滚动位置
+            targetPage.scrollTop = 0;
+
+            // 更新当前页面索引
+            currentPageIndex = pageIds.indexOf(pageId);
+
+            // 更新侧边栏激活状态
+            updateSidebarActive(pageId);
+
+            // 在移动设备上切换页面后关闭侧边栏
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+            }
+        }
+
+        // 更新侧边栏激活状态
+        function updateSidebarActive(pageId) {
+            pageLinks.forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
                     link.classList.add('sidebar-item-active');
                     link.classList.remove('hover:bg-gray-100');
+                } else {
+                    link.classList.remove('sidebar-item-active');
+                    link.classList.add('hover:bg-gray-100');
+                }
+            });
+        }
+
+        // 页面链接点击事件
+        pageLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    switchPage(pageId);
                 }
             });
         });
     </script>
 </body>
+
 </html>
